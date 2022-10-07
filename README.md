@@ -2,6 +2,10 @@
 Dynamic UI server is the server for Dynamic UI configuration
 CMS can be set up using : https://github.com/aviralbansal29/duis_cms
 
+### API Doc:
+- Start the server
+- Go to : http://0.0.0.0:9000/swagger/index.html#/
+
 ### Creating Environment
 - Update env as needed in env.yaml
 - Environment variables can be set to overwrite env.yaml, for eg. `aws.client_id` will be overwritten by environment variable `AWS_CLIENT`
