@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  app:
+    image: cosmtrek/air:latest
+    ports:
+      - '9000:9000'
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+      - go-modules:/go/pkg/mod
+    working_dir: /app
+    depends_on:
+      - database
+    env_file:
+      - '.env.docker'
+    command: ["-c", "/app/.air.toml"]
+  database:
+    image: 'postgres:11.1-alpine'
+    container_name: duis_db
+    ports:
+      - 5433:5432
+    volumes:
+      - duis_postgres:/var/lib/postgresql/data
+    env_file:
+      - '.env.docker'
+    command: ["postgres", "-c", "log_statement=all"]
+
+volumes:
+  go-modules:
+  duis_postgres:

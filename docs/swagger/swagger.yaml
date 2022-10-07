@@ -1,0 +1,88 @@
+basePath: /
+definitions:
+  serializers.RegisterUserRequestBody:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+    type: object
+  serializers.RegisterUserResponse:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      variant:
+        type: string
+    type: object
+info:
+  contact: {}
+  title: Dynamic UI Server
+  version: "1.0"
+paths:
+  /api/v1/components:
+    get:
+      consumes:
+      - application/json
+      description: Returns schema based on user variant and type
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      - description: Component Type
+        enum:
+        - home_page
+        - bottom_bar
+        - recommendation_page
+        in: query
+        name: type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      summary: Get Schema
+      tags:
+      - Component
+  /api/v1/users:
+    post:
+      consumes:
+      - application/json
+      description: Registers the user with default variant
+      parameters:
+      - description: Body
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/serializers.RegisterUserRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializers.RegisterUserResponse'
+        "400":
+          description: Bad Request
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - UserID: []
+      summary: Register User
+      tags:
+      - User
+swagger: "2.0"
